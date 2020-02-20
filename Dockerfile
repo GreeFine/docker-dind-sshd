@@ -32,8 +32,8 @@ RUN echo "PermitRootLogin prohibit-password" >> /etc/ssh/sshd_config && \
   sed -i -e "s/^root:[^:]\+:/root:$pass:/" /etc/shadow
 
 RUN mkdir -p /root/.ssh/
-COPY ash-profile /root/.profile
+COPY ash-profile /etc/profile
 
 EXPOSE 22
 
-CMD [ ]
+CMD [ "dockerd-entrypoint.sh" ]
