@@ -16,7 +16,8 @@ RUN apk add --no-cache \
 		py-pip \
 		openssh \
 		nano \
-		git
+		git \
+		bash
 		
 # build docker-compose
 RUN pip install --upgrade pip \
@@ -31,8 +32,12 @@ RUN echo "PermitRootLogin prohibit-password" >> /etc/ssh/sshd_config && \
   echo "ClientAliveCountMax 720" >> /etc/ssh/sshd_config && \
   sed -i -e "s/^root:[^:]\+:/root:$pass:/" /etc/shadow
 
+
 RUN mkdir -p /root/.ssh/
 COPY ash-profile /etc/profile
+
+RUN mkdir -p /usr/local/bin/
+COPY crun-0.12.2.1-static-x86_64 /usr/local/bin/crun
 
 EXPOSE 22
 
